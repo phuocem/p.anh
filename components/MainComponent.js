@@ -11,9 +11,11 @@ import { View, Text, Linking } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
-import { fetchLeaders } from '../redux/ActionCreators';
+import { fetchLeaders, fetchDishes, fetchComments } from '../redux/ActionCreators';
 const mapDispatchToProps = (dispatch) => ({
-  fetchLeaders: () => dispatch(fetchLeaders())
+  fetchLeaders: () => dispatch(fetchLeaders()),
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments())  
 });
 
 const Stack = createStackNavigator();
@@ -265,6 +267,8 @@ class Main extends Component {
   componentDidMount() {
     // gọi redux action khi component được mount
     this.props.fetchLeaders();
+    this.props.fetchDishes();
+    this.props.fetchComments();
   }
 
   render() {

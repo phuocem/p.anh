@@ -2,20 +2,27 @@
   import { FlatList, View } from 'react-native';
   import { ListItem, Avatar } from 'react-native-elements';
   // import Dishdetail from './DishdetailComponent';
-  import { DISHES } from '../shared/dishes';
+  // import { DISHES } from '../shared/dishes';
+import { baseUrl } from '../shared/baseUrl';
+import { connect } from 'react-redux';
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes
+  }
+};
 
-  class Menu extends Component {
-      constructor(props) {
-      super(props);
-      this.state = {
-        // selectedDish: null
-        dishes: DISHES
-      };
+class Menu extends Component {
+    constructor(props) {
+    super(props);
+    // this.state = {
+    //   // selectedDish: null
+    //     dishes: DISHES
+      // };
     }
     render() {
       return (
         // <View style={{ flex: 1 }}>
-        <FlatList data={this.state.dishes}
+         <FlatList data={this.props.dishes.dishes}
           renderItem={({ item, index }) => this.renderMenuItem(item, index)}
           keyExtractor={(item) => item.id.toString()} />
           // <Dishdetail dish={this.state.selectedDish} />
@@ -27,7 +34,7 @@
       return (
     <ListItem key={index} onPress={() => navigate('Dishdetail', { dishId: item.id })} bottomDivider>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Avatar source={require('./images/uthappizza.png')} />
+    <Avatar source={{uri: baseUrl + item.image}} />
             <ListItem.Content style={{ marginLeft: 10 }}>
               <ListItem.Title>{item.name}</ListItem.Title>
               <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
@@ -37,4 +44,4 @@
       );
     }
   }
-  export default Menu;
+export default connect(mapStateToProps)(Menu);
