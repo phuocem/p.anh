@@ -63,3 +63,24 @@ const addComments = (comments) => ({
   type: ActionTypes.ADD_COMMENTS,
   payload: comments
 });
+export const fetchPromos = () => (dispatch) => {
+  dispatch(promosLoading());
+  return fetch(baseUrl + 'promotions')
+    .then((response) => {
+      if (!response.ok) throw Error('Error ' + response.status + ': ' + response.statusText);
+      else return response.json();
+    })
+    .then((promos) => dispatch(addPromos(promos)))
+    .catch((error) => dispatch(promosFailed(error.message)));
+};
+const promosLoading = () => ({
+  type: ActionTypes.PROMOS_LOADING
+});
+const addPromos = (promos) => ({
+  type: ActionTypes.ADD_PROMOS,
+  payload: promos
+});
+const promosFailed = (errmess) => ({
+  type: ActionTypes.PROMOS_FAILED,
+  payload: errmess
+});

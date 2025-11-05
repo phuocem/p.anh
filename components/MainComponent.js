@@ -11,11 +11,13 @@ import { View, Text, Linking } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
-import { fetchLeaders, fetchDishes, fetchComments } from '../redux/ActionCreators';
+import { fetchLeaders, fetchDishes, fetchComments ,fetchPromos } from '../redux/ActionCreators';
+import { baseUrl } from '../shared/baseUrl';
 const mapDispatchToProps = (dispatch) => ({
   fetchLeaders: () => dispatch(fetchLeaders()),
   fetchDishes: () => dispatch(fetchDishes()),
-  fetchComments: () => dispatch(fetchComments())  
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos())
 });
 
 const Stack = createStackNavigator();
@@ -157,14 +159,12 @@ function CustomDrawerContent(props) {
         }}
       >
         <Image
-          source={require('./images/logo.png')}
-          style={{ width: 80, height: 60, marginRight: 10 }}
+          source={{ uri: baseUrl + 'images/logo.png' }}
         />
         <Text style={{ color: '#fff', fontSize: 22, fontWeight: 'bold' }}>
           AnhTP
         </Text>
       </View>
-
       {/* Danh sách các item mặc định */}
       <DrawerItemList {...props} />
 
@@ -265,10 +265,10 @@ function MainNavigatorScreen() {
 
 class Main extends Component {
   componentDidMount() {
-    // gọi redux action khi component được mount
-    this.props.fetchLeaders();
+   this.props.fetchLeaders();
     this.props.fetchDishes();
     this.props.fetchComments();
+    this.props.fetchPromos();
   }
 
   render() {
