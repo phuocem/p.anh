@@ -84,3 +84,11 @@ const promosFailed = (errmess) => ({
   type: ActionTypes.PROMOS_FAILED,
   payload: errmess
 });
+// favorites
+export const postFavorite = (dishId) => (dispatch) => {
+  dispatch(addFavorite(dishId));
+};
+const addFavorite = (dishId) => ({
+  type: ActionTypes.ADD_FAVORITE,
+  payload: dishId
+});

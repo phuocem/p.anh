@@ -13,7 +13,7 @@ import Dishdetail from './DishdetailComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import { baseUrl } from '../shared/baseUrl';
-
+import Reservation from './ReservationComponent';
 // ----- Redux mapDispatchToProps -----
 const mapDispatchToProps = (dispatch) => ({
   fetchLeaders: () => dispatch(fetchLeaders()),
@@ -21,7 +21,23 @@ const mapDispatchToProps = (dispatch) => ({
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos())
 });
-
+function ReservationNavigatorScreen() {
+  const ReservationNavigator = createStackNavigator();
+  return (
+    <ReservationNavigator.Navigator initialRouteName='Reservation'
+      screenOptions={{
+        headerStyle: { backgroundColor: '#7cc' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { color: '#fff' }
+      }}>
+      <ReservationNavigator.Screen name='Reservation' component={Reservation}
+        options={({ navigation }) => ({
+          headerTitle: 'Reserve Table',
+          headerLeft: () => (<Icon name='menu' size={36} color='#fff' onPress={() => navigation.toggleDrawer()} />)
+        })} />
+    </ReservationNavigator.Navigator>
+  );
+}
 // ----- Home Navigator -----
 function HomeNavigatorScreen() {
   const HomeNavigator = createStackNavigator();
@@ -249,6 +265,11 @@ function MainNavigatorScreen() {
           )
         }}
       />
+            <MainNavigator.Screen name='ReservationScreen' component={ReservationNavigatorScreen}
+        options={{
+          title: 'Reserve Table', headerShown: false,
+          drawerIcon: ({ focused, size }) => (<Icon name='cutlery' type='font-awesome' size={size} color={focused ? '#7cc' : '#ccc'} />)
+        }} />
     </MainNavigator.Navigator>
   );
 }
