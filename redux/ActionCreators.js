@@ -1,9 +1,12 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { set } from 'date-fns';
 
 // leaders
 export const fetchLeaders = () => (dispatch) => {
   dispatch(leadersLoading());
+    setTimeout(() => {
+
   return fetch(baseUrl + 'leaders')
     .then((response) => {
       if (!response.ok) throw Error('Error ' + response.status + ': ' + response.statusText);
@@ -11,6 +14,7 @@ export const fetchLeaders = () => (dispatch) => {
     })
     .then((leaders) => dispatch(addLeaders(leaders)))
     .catch((error) => dispatch(leadersFailed(error.message)));
+  }, 2000);
 };
 const leadersLoading = () => ({
   type: ActionTypes.LEADERS_LOADING
@@ -25,6 +29,8 @@ const addLeaders = (leaders) => ({
 });
 export const fetchDishes = () => (dispatch) => {
   dispatch(dishesLoading());
+    setTimeout(() => {
+
   return fetch(baseUrl + 'dishes')
     .then((response) => {
       if (!response.ok) throw Error('Error ' + response.status + ': ' + response.statusText);
@@ -32,6 +38,7 @@ export const fetchDishes = () => (dispatch) => {
     })
     .then((dishes) => dispatch(addDishes(dishes)))
     .catch((error) => dispatch(dishesFailed(error.message)));
+  }, 2000);
 };
 const dishesLoading = () => ({
   type: ActionTypes.DISHES_LOADING
@@ -65,6 +72,8 @@ const addComments = (comments) => ({
 });
 export const fetchPromos = () => (dispatch) => {
   dispatch(promosLoading());
+   setTimeout(() => {
+ 
   return fetch(baseUrl + 'promotions')
     .then((response) => {
       if (!response.ok) throw Error('Error ' + response.status + ': ' + response.statusText);
@@ -72,6 +81,7 @@ export const fetchPromos = () => (dispatch) => {
     })
     .then((promos) => dispatch(addPromos(promos)))
     .catch((error) => dispatch(promosFailed(error.message)));
+  }, 2000);
 };
 const promosLoading = () => ({
   type: ActionTypes.PROMOS_LOADING
@@ -86,6 +96,7 @@ const promosFailed = (errmess) => ({
 });
 // favorites
 export const postFavorite = (dishId) => (dispatch) => {
+  
   dispatch(addFavorite(dishId));
 };
 const addFavorite = (dishId) => ({
