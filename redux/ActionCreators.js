@@ -103,3 +103,28 @@ const addFavorite = (dishId) => ({
   type: ActionTypes.ADD_FAVORITE,
   payload: dishId
 });
+
+
+//Assignment 2 quan trọng ko sửa
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
+
+
+// delai 1 s để code sạch 
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+    
+    const newComment = {
+        dishId: dishId,
+        rating: rating,
+        author: author,
+        comment: comment,
+        date: new Date().toISOString()
+    };
+
+    // Delay 1s 
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 1000);
+};
