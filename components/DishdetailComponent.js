@@ -55,6 +55,13 @@ class RenderDish extends Component {
 }
 
 class RenderComments extends Component {
+
+  add7Hours(dateString) {
+    const date = new Date(dateString);
+    date.setHours(date.getHours() + 7);
+    return date.toISOString(); // giữ nguyên format ISO
+  }
+
   renderCommentItem(item) {
     return (
       <View key={item.id} style={{ margin: 10 }}>
@@ -68,7 +75,7 @@ class RenderComments extends Component {
         />
 
         <Text style={{ fontSize: 12, color: '#666' }}>
-          {'-- ' + item.author + ', ' + item.date}
+          {'-- ' + item.author + ', ' + this.add7Hours(item.date)}
         </Text>
       </View>
     );
@@ -86,6 +93,7 @@ class RenderComments extends Component {
     );
   }
 }
+
 
 class Dishdetail extends Component {
   constructor(props) {
